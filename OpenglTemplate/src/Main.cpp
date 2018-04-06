@@ -99,13 +99,14 @@ int main()
 			/* Render here */
 			renderer.Clear();
 
-			//glDrawArrays(GL_TRIANGLES,0,3*6*6);
+			
 			va.Bind();
 			ib.Bind();
 			shader.Bind();
 			shader.SetUniformMat4f("MVP", MVP);
-			//shader.SetUniformElements("color", red, bg, bg, a); //gives error
-			renderer.Draw(va, ib, shader);
+			shader.SetUniformElements("color", 0.5f, 0.2f, 0.1f, 1.0f); //gives error
+			
+		renderer.Draw(va, ib, shader);
 
 			/* Swap front and back buffers */
 			glfwSwapBuffers(window);
