@@ -109,10 +109,6 @@ int Shader::GetUniformLocation(const std::string& name)
 }
 
 
-void Shader::SetUniform4f(const std::string & name, float v0, float v1, float v2, float v3)
-{
-	GLCall(glUniform4f(GetUniformLocation(name), v0, v1, v2, v3));
-}
 void Shader::SetUniformMat4f(const std::string & name,glm::mat4& mat)
 {
 GLCall(glUniformMatrix4fv(GetUniformLocation(name),1,0,&mat[0][0]));
@@ -120,4 +116,76 @@ GLCall(glUniformMatrix4fv(GetUniformLocation(name),1,0,&mat[0][0]));
 
 
 
+template <typename... Rest>
+void Shader::SetUniformElements(const std::string & name,float f0, Rest... uniforms)
+{
+	int uniforms_count = 3;//sizeof...(uniforms);
+	switch (uniforms_count)
+	{
+	case 0:
+		GLCall(glUniform1f(GetUniformLocation(name),f0));
+		break;
+	case 1:
+		GLCall(glUniform2f(GetUniformLocation(name), f0, std::forward<Rest>(uniforms)...));
+		break;
+	case 2:
+		GLCall(glUniform3f(GetUniformLocation(name), f0, std::forward<Rest>(uniforms)...));
+		break;
+	case 3:
+		GLCall(glUniform4f(GetUniformLocation(name), f0, std::forward<Rest>(uniforms)...));
+		break;
+	default:
+		std::cout << "warning wrong paramters number for set uniform\n";
+		break;
+	}
 
+}
+
+
+template <typename... Rest>
+void Shader::SetUniformElements(const std::string & name, unsigned int ui0, Rest... uniforms)
+{
+	switch (sizeof...(uniforms))
+	{
+	case 0:
+		GLCall(glUniform1ui(GetUniformLocation(name), ui0, std::forward<Rest>(uniforms)...));
+		break;
+	case 1:
+		GLCall(glUniform2ui(GetUniformLocation(name), ui0, std::forward<Rest>(uniforms)...));
+		break;
+	case 2:
+		GLCall(glUniform3ui(GetUniformLocation(name), ui0, std::forward<Rest>(uniforms)...));
+		break;
+	case 3:
+		GLCall(glUniform4ui(GetUniformLocation(name), ui0, std::forward<Rest>(uniforms)...));
+		break;
+	default:
+		std::cout << "warning wrong paramters number for set uniform\n";
+		break;
+	}
+
+}
+
+template <typename... Rest>
+void Shader::SetUniformElements(const std::string & name, int i0, Rest... uniforms)
+{
+	switch (sizeof...(uniforms))
+	{
+	case 0:
+		GLCall(glUniform1i(GetUniformLocation(name), i0, std::forward<Rest>(uniforms)...));
+		break;
+	case 1:
+		GLCall(glUniform2i(GetUniformLocation(name), i0, std::forward<Rest>(uniforms)...));
+		break;
+	case 2:
+		GLCall(glUniform3i(GetUniformLocation(name), i0, std::forward<Rest>(uniforms)...));
+		break;
+	case 3:
+		GLCall(glUniform4i(GetUniformLocation(name), i0, std::forward<Rest>(uniforms)...));
+		break;
+	default:
+		std::cout << "warning wrong paramters number for set uniform\n";
+		break;
+	}
+
+}

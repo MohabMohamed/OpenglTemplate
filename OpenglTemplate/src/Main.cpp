@@ -89,14 +89,22 @@ int main()
 		shader.SetUniformMat4f("MVP", MVP);	
 		shader.Unbind();
 		Renderer renderer;
+		float color_inc = 0.1;
+		float red = 0.3,bg=0.5,a=1;
 		while (!glfwWindowShouldClose(window))
 		{
+			red += color_inc;
+			if (red > 1)
+				red = 0;
 			/* Render here */
 			renderer.Clear();
 
 			//glDrawArrays(GL_TRIANGLES,0,3*6*6);
-
-			
+			va.Bind();
+			ib.Bind();
+			shader.Bind();
+			shader.SetUniformMat4f("MVP", MVP);
+			//shader.SetUniformElements("color", red, bg, bg, a); //gives error
 			renderer.Draw(va, ib, shader);
 
 			/* Swap front and back buffers */

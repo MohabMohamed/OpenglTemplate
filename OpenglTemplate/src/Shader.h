@@ -27,13 +27,25 @@ public:
 	void Unbind() const;
 
 //set uniforms
-	void SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3);
+	template<typename ...Rest>
+	void SetUniformElements(const std::string & name, float f0, Rest ...uniforms);
+
+	template<typename ...Rest>
+	void SetUniformElements(const std::string & name, unsigned int ui0, Rest ...uniforms);
+
+	template<typename ...Rest>
+	void SetUniformElements(const std::string & name, int i0, Rest ...uniforms);
+
 	void SetUniformMat4f(const std::string & name, glm::mat4 & mat);
 private:
 	ShadersSourcePrograms ParseShaders();
 	unsigned int CompileShader(unsigned int type, const std::string & source);
 	unsigned int CreateShader(const std::string & vertexShader, const std::string & fragmentShader);
 	int GetUniformLocation(const std::string&);
+
+
+
+	
 
 };
 
