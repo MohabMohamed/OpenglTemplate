@@ -105,7 +105,7 @@ int main()
 		Texture tex("res/Textures/tex.png");
 		tex.Bind();
 		shader.Bind();
-		shader.SetUniformMat4f("MVP", MVP);	
+		shader.SetUniformElement("MVP", MVP);	
 		shader.Unbind();
 		Renderer renderer;
 		float color_inc = 0.1;
@@ -126,11 +126,11 @@ int main()
 			ib.Bind();
 			
 			shader.Bind();
-			shader.SetUniformMat4f("MVP", MVP);
-			glUniform1i(shader.GetUniformLocation("u_texture"),0);
-			//shader.SetUniformElements("color", 0.5f, 0.2f, 0.1f, 1.0f); //gives error
 			
-		//	glUniform4f(shader.GetUniformLocation("color"), red, bg, bg, a);
+			shader.SetUniformElement("MVP", MVP);
+			shader.SetUniformElement("u_texture", 0);
+			shader.SetUniformElement("color", 0.5f, 0.2f, 0.1f, 1.0f);
+
 		renderer.Draw(va, ib, shader);
 
 			/* Swap front and back buffers */

@@ -42,100 +42,93 @@ private:
 	//caching uniforms
 	std::unordered_map<std::string, int> m_UniformLocationCache;
 public:
+
 	Shader(const std::string&);
+
 	~Shader();
 
 	void Bind() const;
+
 	void Unbind() const;
+	
+	void SetUniformElement(const std::string & name, float v0);
 
-//set uniforms
+	void SetUniformElement(const std::string & name, float v0, float v1);
 
-	template <typename... Rest>
-	void SetUniformElements(const std::string & name, float f0, Rest... uniforms)
-	{
-		
-		switch (sizeof...(uniforms))
-		{
-		case 0:
-			glUniform1f(GetUniformLocation(name), f0);
-			break;
-		case 1:
-			glUniform2f(GetUniformLocation(name), f0, std::forward<Rest>(uniforms)...);
-			
-			break;
-		case 2:
-			glUniform3f(GetUniformLocation(name), f0, std::forward<Rest>(uniforms)...);
-			break;
-		case 3:
-			glUniform4f(GetUniformLocation(name), f0, std::forward<Rest>(uniforms)...);
-			break;
-		default:
-			std::cout << "warning wrong paramters number for set uniform\n";
-			break;
-		}
+	void SetUniformElement(const std::string & name, float v0, float v1, float v2);
 
-	}
+	void SetUniformElement(const std::string & name, float v0, float v1, float v2, float v3);
 
+	void SetUniformElement(const std::string & name, unsigned int v0);
 
-	template <typename... Rest>
-	void SetUniformElements(const std::string & name, unsigned int ui0, Rest... uniforms)
-	{
-		switch (sizeof...(uniforms))
-		{
-		case 0:
-			GLCall(glUniform1ui(GetUniformLocation(name), ui0, std::forward<Rest>(uniforms)...));
-			break;
-		case 1:
-			GLCall(glUniform2ui(GetUniformLocation(name), ui0, std::forward<Rest>(uniforms)...));
-			break;
-		case 2:
-			GLCall(glUniform3ui(GetUniformLocation(name), ui0, std::forward<Rest>(uniforms)...));
-			break;
-		case 3:
-			GLCall(glUniform4ui(GetUniformLocation(name), ui0, std::forward<Rest>(uniforms)...));
-			break;
-		default:
-			std::cout << "warning wrong paramters number for set uniform\n";
-			break;
-		}
+	void SetUniformElement(const std::string & name, unsigned int v0, unsigned int v1);
 
-	}
+	void SetUniformElement(const std::string & name, unsigned int v0, unsigned int v1, unsigned int v2);
 
-	template <typename... Rest>
-	void SetUniformElements(const std::string & name, int i0, Rest... uniforms)
-	{
-		switch (sizeof...(uniforms))
-		{
-		case 0:
-			GLCall(glUniform1i(GetUniformLocation(name), i0, std::forward<Rest>(uniforms)...));
-			break;
-		case 1:
-			GLCall(glUniform2i(GetUniformLocation(name), i0, std::forward<Rest>(uniforms)...));
-			break;
-		case 2:
-			GLCall(glUniform3i(GetUniformLocation(name), i0, std::forward<Rest>(uniforms)...));
-			break;
-		case 3:
-			GLCall(glUniform4i(GetUniformLocation(name), i0, std::forward<Rest>(uniforms)...));
-			break;
-		default:
-			std::cout << "warning wrong paramters number for set uniform\n";
-			break;
-		}
+	void SetUniformElement(const std::string & name, unsigned int v0, unsigned int v1, unsigned int v2, unsigned int v3);
 
-	}
+	void SetUniformElement(const std::string & name, int v0);
+
+	void SetUniformElement(const std::string & name, int v0, int v1);
+
+	void SetUniformElement(const std::string & name, int v0, int v1, int v2);
+
+	void SetUniformElement(const std::string & name, int v0, int v1, int v2, int v3);
+
+	void SetUniformElement(const std::string & name, double v0);
+
+	void SetUniformElement(const std::string & name, double v0, double v1);
+
+	void SetUniformElement(const std::string & name, double v0, double v1, double v2);
+
+	void SetUniformElement(const std::string & name, double v0, double v1, double v2, double v3);
+
+	void SetUniformElement(const std::string & name, glm::mat2 & mat);
+
+	void SetUniformElement(const std::string & name, glm::mat3 & mat);
+
+	void SetUniformElement(const std::string & name, glm::mat4 & mat);
+
+	void SetUniformElement(const std::string & name, glm::dmat2 mat);
+
+	void SetUniformElement(const std::string & name, glm::dmat3 mat);
+
+	void SetUniformElement(const std::string & name, glm::dmat4 mat);
+
+	void SetUniformElement(const std::string & name, glm::vec2 vec);
+
+	void SetUniformElement(const std::string & name, glm::vec3 vec);
+
+	void SetUniformElement(const std::string & name, glm::vec4 vec);
+
+	void SetUniformElement(const std::string & name, glm::ivec2 vec);
+
+	void SetUniformElement(const std::string & name, glm::ivec3 vec);
+
+	void SetUniformElement(const std::string & name, glm::ivec4 vec);
+
+	void SetUniformElement(const std::string & name, glm::dvec2 vec);
+
+	void SetUniformElement(const std::string & name, glm::dvec3 vec);
+
+	void SetUniformElement(const std::string & name, glm::dvec4 vec);
+
+	void SetUniformElement(const std::string & name, glm::uvec2 vec);
+
+	void SetUniformElement(const std::string & name, glm::uvec3 vec);
+
+	void SetUniformElement(const std::string & name, glm::uvec4 vec);
 	
 
-	void SetUniformMat4f(const std::string & name, glm::mat4 & mat);
 private:
-	ShadersSourcePrograms ParseShaders();
-	unsigned int CompileShader(unsigned int type, const std::string & source);
-	unsigned int CreateShader(const std::string & vertexShader, const std::string & fragmentShader);
-	int GetUniformLocation(const std::string&);
-
-
-
 	
+	ShadersSourcePrograms ParseShaders();
+	
+	unsigned int CompileShader(unsigned int type, const std::string & source);
+	
+	unsigned int CreateShader(const std::string & vertexShader, const std::string & fragmentShader);
+	
+	int GetUniformLocation(const std::string&);
 
 };
 
