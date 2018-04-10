@@ -102,7 +102,7 @@ int main()
 			45.0f, 4.0f / 3.0f, 1.0f, 100.0f);
 		MVP = ProjectionMatrix*ViewMatrix*ModelMatrix;
 
-		Texture tex("res/Textures/tex.png");
+		Texture tex("res/Textures/EPICNESS.png");
 		tex.Bind();
 		shader.Bind();
 		shader.SetUniformElement("MVP", MVP);	

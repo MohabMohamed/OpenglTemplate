@@ -1,5 +1,7 @@
 #include "Texture.h"
+#include <GL\glew.h>
 #include "vendor\stb\stb_image.h"
+#include "GLErrorHandler.h"
 
 Texture::Texture(const std::string & Path)
 	:m_RendererID(0) ,m_FilePath(Path),m_LocalBuffer(nullptr), m_Width(0), m_Hight(0),m_BPP(0)

@@ -1,5 +1,6 @@
 #include "Shader.h"
-#include "Renderer.h"
+#include <GL\glew.h>
+#include "GLErrorHandler.h"
 #include <fstream>
 #include <sstream>
 
