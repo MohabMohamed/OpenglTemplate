@@ -48,6 +48,7 @@ int main()
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
+	glewExperimental = true;
 	if (glewInit() != GLEW_OK)
 		std::cout << "error in glew" << std::endl;
 	std::cout << glGetString(GL_VERSION) << std::endl;
